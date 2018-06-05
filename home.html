@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Twitch-Video-Page</title>
+<link rel="stylesheet" type="text/css" href="Style.css">
+</head>
+<body>
+<h1>Twitch Test Page Project</h1>
+<p>Hello World!</p>
+
+<script src= "http://player.twitch.tv/js/embed/v1.js"></script>
+<div id="vidplayer"></div>
+<script>
+  var options = {
+    width: 800,
+    height: 600,
+    channel: "brutalmoose",
+  };
+  var player = new Twitch.Player("vidplayer", options);
+  player.setVolume(0.5);
+</script>
+<!-- curl -H 'Client-ID: 1qsoixw48ug5pg9v87t3a0v89hjt1y' -X GET 'https://api.twitch.tv/helix/streams?first=20' -->
+</body>
+</html>
