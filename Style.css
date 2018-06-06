@@ -1,7 +1,36 @@
 body {
 	background-color: #6441A4; /*twitch purple*/
+	font-family: fantasy;
+	letter-spacing: 1px;
+	color: white;
 }
 
 h1, p {
-	color: white;
+	
+}
+
+.container {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	align-content: space-between;
+	
+}
+
+.vid {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	font-size: 20px;
+	margin-right: 50px;
+	height: 300px;
+	width: 400px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	
 }

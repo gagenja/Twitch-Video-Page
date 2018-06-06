@@ -3,12 +3,37 @@
 <head>
 <title>Twitch-Video-Page</title>
 <link rel="stylesheet" type="text/css" href="Style.css">
+<script src="jquery-3.3.1.min.js"></script>
+<script>
+var i, title, thumbnail;
+$(document).ready(function(){
+	<!-- Grab top 20 videos from Twitch using API -->
+	$.ajax({
+		url:"https://api.twitch.tv/helix/streams?first=20",
+		headers: {"Client-ID": "1qsoixw48ug5pg9v87t3a0v89hjt1y"},
+		success:function(result) {
+			<!-- Display video titles and thumbnails -->
+			for(i = 0; i < result.data.length; i++) {
+				title = result.data[i].title;
+				thumbnail = result.data[i].thumbnail_url.replace("{width}", "355").replace("{height}", "200");
+				
+				$("#videos").append("<div class='vid'>" + title + "<img src='" + thumbnail + "'></div>");
+			}
+		},
+		error:function(result) {
+			$("#videos").text("something went wrong");
+		}
+	});
+	
+});
+</script>
 </head>
 <body>
 <h1>Twitch Test Page Project</h1>
 <p>Hello World!</p>
+<div id="videos" class="container"></div>
 
-<script src= "http://player.twitch.tv/js/embed/v1.js"></script>
+<!-- <script src= "http://player.twitch.tv/js/embed/v1.js"></script>
 <div id="vidplayer"></div>
 <script>
   var options = {
@@ -18,7 +43,7 @@
   };
   var player = new Twitch.Player("vidplayer", options);
   player.setVolume(0.5);
-</script>
+</script> -->
 <!-- curl -H 'Client-ID: 1qsoixw48ug5pg9v87t3a0v89hjt1y' -X GET 'https://api.twitch.tv/helix/streams?first=20' -->
 </body>
 </html>
