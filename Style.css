@@ -1,7 +1,6 @@
 body {
 	background-color: #6441A4; /*twitch purple*/
-	font-family: fantasy;
-	letter-spacing: 1px;
+	font-family: Arial;
 	color: white;
 }
 
@@ -28,9 +27,10 @@ h1, p {
 	font-size: 20px;
 	margin-right: 50px;
 	height: 300px;
-	width: 400px;
+	width: 355px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	min-width: 0;
 	
 }
