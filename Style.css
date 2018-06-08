@@ -15,7 +15,7 @@ h1, p {
 	justify-content: flex-start;
 	flex-wrap: wrap;
 	align-content: space-between;
-	
+	min-width: 0;
 }
 
 .vid {
@@ -26,11 +26,13 @@ h1, p {
 	flex-wrap: wrap;
 	font-size: 20px;
 	margin-right: 50px;
-	height: 300px;
+	margin-bottom: 50px;
+	height: 250px;
 	width: 355px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	min-width: 0;
+	border-style: outset;
 	
 }
