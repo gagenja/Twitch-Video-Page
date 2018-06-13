@@ -13,6 +13,8 @@ function APICall(url, callback) {
 	});	
 }
 
+//Video Search Page
+
 //Populates video list using passed in JSON object from API request
 function displayVids(videos) {
 	var i, title, thumbnail, id, url;
@@ -33,7 +35,7 @@ function displayVids(videos) {
 }
 
 function searchVids() {
-	<!-- use jquery to read value of searchBy to determine type of search -->
+	//read value of searchBy to determine type of search
 	$(document).ready(function() {
 		if($("#searchBy").val()=="user") {
 			var url = "https://api.twitch.tv/helix/users?login=" + $("#vidSearch").val();
@@ -56,3 +58,22 @@ function searchByGame(games) {
 	APICall(url, displayVids)
 }
 
+//Details Page
+
+function displayDetails(video) {
+	var title, description, published, url, type, thumbnail, viewcount, duration;
+	title = video.data[0].title;
+	description = video.data[0].description;
+	published = video.data[0].published_at;
+	url = video.data[0].url;
+	type = video.data[0].type;
+	if(type != "live") {
+			thumbnail = video.data[0].thumbnail_url.replace("%{width}", "355").replace("%{height}", "200");
+		}
+		else {
+			thumbnail = video.data[0].thumbnail_url.replace("{width}", "355").replace("{height}", "200");
+		}
+	viewcount = video.data[0].view_count;
+	duration = video.data[0].duration;
+	$("#title").text(title);
+}

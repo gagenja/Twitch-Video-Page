@@ -5,18 +5,19 @@
 <script src="jquery-3.3.1.min.js"></script>
 <script src="APIHandler.js"></script>
 <script>
-function getID() {
-	var url = window.location.href.split("?");
-	var id = url[1].replace("id=", "");
-	return id;
-}
+var url = window.location.href.split("?");
+var id = url[1].replace("id=", "");
+var newUrl = "https://api.twitch.tv/helix/videos?id=" + id;
+	
 $(document).ready(function() { 
-	$("#title").text(getID());
+	$("#title").text(id);
 });
+APICall(newUrl, displayDetails);
 </script>
 </head>
 <body>
 <h1>This is the display page! Hooray!</h1>
 <h2 id="title"></h2>
+<div id="details"></div>
 </body>
 </html>
