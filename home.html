@@ -2,89 +2,37 @@
 <html>
 <head>
 <title>Twitch-Video-Page</title>
-<link rel="stylesheet" type="text/css" href="Style.css">
+<link rel="stylesheet" type="text/css" href="style.css">
 <script src="jquery-3.3.1.min.js"></script>
+<script src="APIHandler.js"></script>
 <script>
-function APICall(url, callback) {
-	$(document).ready(function(){
-		$.ajax({
-			url:url,
-			headers:{"Client-ID": "1qsoixw48ug5pg9v87t3a0v89hjt1y"},
-			success:function(result) {
-				callback(result);
-			},
-			error:function(result) {
-				console.log("API Call failed");
-			}
-		});
-	});	
-}
-
-<!-- Populates video list using passed in JSON object from API request -->
-function displayVids(videos) {
-	var i, title, thumbnail;
-
-	for(i = 0; i < videos.data.length; i++) {
-		title = videos.data[i].title;
-		if(videos.data[i].type != "live") {
-			thumbnail = videos.data[i].thumbnail_url.replace("%{width}", "355").replace("%{height}", "200");
+$(document).ready(function() {
+	$("#vidSearch").keyup(function(event) {
+		if(event.keyCode == 13) {
+			$("#searchButton").click();
 		}
-		else {
-			thumbnail = videos.data[i].thumbnail_url.replace("{width}", "355").replace("{height}", "200");
-		}
-		$("#videos").append("<div class='vid'>" + title + "<img src='" + thumbnail + "'></div>");
-	}
-}
+	});
+});
 
 <!-- clears video list -->
 function clearVids() {
 	$("#videos").empty();
 }
 
-function searchVids() {
-	<!-- use jquery to read value of searchBy to determine type of search -->
-	$(document).ready(function() {
-		var url = "https://api.twitch.tv/helix/users?login=" + $("#vidSearch").val();
-		APICall(url, searchByUser);
-	});
-}
-
-function searchByUser(users) {
-	
-	var url = "https://api.twitch.tv/helix/videos?user_id=" + users.data[0].id;
-	APICall(url, displayVids);
-	
-}
-
-
 <!-- initialize video list with top 20 streams -->
 APICall("https://api.twitch.tv/helix/streams?first=20", displayVids);
-
 </script>
 </head>
 <body>
 <h1>Twitch Test Page Project</h1>
 <h2>Search for videos!</h2>
-<!-- try to make this so pressing 'enter' submits a search -->
 <input type="search" id="vidSearch">Search by</input>
-<select name="searchBy">
+<select id="searchBy">
 	<option value="user">User</option>
 	<option value="game">Game</option>
 </select>
-<button onclick="clearVids(); searchVids()">Search</button>
+<button onclick="clearVids(); searchVids()" id="searchButton">Search</button>
 <button onclick="clearVids(); APICall('https://api.twitch.tv/helix/streams?first=20', displayVids);">Top 20 Streams</button>
 <div id="videos" class="container"></div>
-
-<!-- <script src= "http://player.twitch.tv/js/embed/v1.js"></script>
-<div id="vidplayer"></div>
-<script>
-  var options = {
-    width: 800,
-    height: 600,
-    channel: "brutalmoose",
-  };
-  var player = new Twitch.Player("vidplayer", options);
-  player.setVolume(0.5);
-</script> -->
 </body>
 </html>

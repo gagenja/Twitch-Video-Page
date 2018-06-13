@@ -1,0 +1,22 @@
+<!Doctype html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script src="jquery-3.3.1.min.js"></script>
+<script src="APIHandler.js"></script>
+<script>
+function getID() {
+	var url = window.location.href.split("?");
+	var id = url[1].replace("id=", "");
+	return id;
+}
+$(document).ready(function() { 
+	$("#title").text(getID());
+});
+</script>
+</head>
+<body>
+<h1>This is the display page! Hooray!</h1>
+<h2 id="title"></h2>
+</body>
+</html>
