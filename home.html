@@ -13,18 +13,16 @@ $(document).ready(function() {
 		}
 	});
 });
-
 <!-- clears video list -->
 function clearVids() {
 	$("#videos").empty();
 }
-
 <!-- initialize video list with top 20 videos -->
 APICall("https://api.twitch.tv/kraken/videos/top?limit=20", displayVids);
 </script>
 </head>
 <body>
-<h1>Twitch Test Page Project</h1>
+<h1>Twitch Video Page Project</h1>
 <h2>Search for videos!</h2>
 <input type="search" id="vidSearch">Search by</input>
 <select id="searchBy">

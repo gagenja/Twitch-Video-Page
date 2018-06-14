@@ -5,8 +5,8 @@ body {
 	margin-left: 50px;
 }
 
-h1, p {
-	
+a {
+	color: white;
 }
 
 .container {
@@ -28,14 +28,22 @@ h1, p {
 	font-size: 20px;
 	margin-right: 50px;
 	margin-top: 50px;
-	height: 263px;
-	width: 320px;
+	height: 290px;
+	width: 310px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	min-width: 0;
+	background-color: #50318c;
 	border-style: outset;
-	
+	border-color: #50318c;
+}
+
+#details {
+	max-width: 1280px;
+	background-color: #50318c;
+	border-style: outset;
+	border-color: #50318c;
 }
 
 

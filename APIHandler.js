@@ -1,3 +1,4 @@
+//Calls the Twitch API usen the given url and client ID
 function APICall(url, callback) {
 	$(document).ready(function(){
 		$.ajax({
@@ -18,7 +19,7 @@ function APICall(url, callback) {
 //Populates video list using passed in JSON object from API request
 function displayVids(data) {
 	var i, title, thumbnail, id, url;
-
+	//create a div for each video containing its name and thumbnail
 	for(i = 0; i < data.videos.length; i++) {
 		title = data.videos[i].title;
 		thumbnail = data.videos[i].thumbnails[0].url;	
@@ -30,6 +31,7 @@ function displayVids(data) {
 	}
 }
 
+//Searches for videos by user or game
 function searchVids() {
 	//read value of searchBy to determine type of search
 	$(document).ready(function() {
@@ -44,6 +46,7 @@ function searchVids() {
 	});
 }
 
+//Gets the 20 most recent videos of each user found from search and passes to displayVids
 function searchByUser(data) {
 	var i;
 	for(i = 0; i < data.channels.length; i++) {
@@ -52,29 +55,31 @@ function searchByUser(data) {
 	}
 }
 
+//Gets the 20 most recent videos of each game found from search and passes to displayVids
 function searchByGame(data) {
 	var i;
 	for(i = 0; i < data.games.length; i++) {
-		var url = "https://api.twitch.tv/kraken/videos/top?limit=20&game=" + data.games[i].name;
+		var url = "https://api.twitch.tv/kraken/videos/top?limit=20&sort=time&game=" + data.games[i].name;
 		APICall(url, displayVids)
 	}
 }
 
 //Details Page
 
+//Displays the given video's information on the Details Page
 function displayDetails(video) {
-	var id, title, channel, description, published, url, type, thumbnail, viewcount, duration;
+	var id, title, channel, description, published, url, type, game, viewcount;
 	id = video._id
 	title = video.title;
 	channel = video.channel.display_name;
 	description = video.description;
-	published = video.published_at;
+	published = new Date(video.published_at);
 	url = video.url;
 	type = video.broadcast_type;
-	thumbnail = video.thumbnails[0].url;
+	game = video.game;
 	viewcount = video.views;
 	$("#title").text(title);
-	$("#channel").text(channel);
+	$("#channel").text("By " + channel);
 	$("#vidPlayer").append("<iframe src='http://player.twitch.tv/?video=" + id +
 	"&autoplay=false'" +
     "height='720'" +
@@ -83,7 +88,12 @@ function displayDetails(video) {
     "scrolling='no'" +
     "allowfullscreen='true'>" +
 	"</iframe>");
+	$("#details").append("<h3>Views: " + viewcount + "</h3>");
+	$("#details").append("<h3>Published: " + published.toDateString() + "</h3>");
+	$("#details").append("<h3>Broadcast Type: " + type + "</h3>");
+	$("#details").append("<h3>Game: " + game + "</h3>");
 	if(description != null) {
-		$("#details").append("<p>" + description + "</p>");
+		$("#details").append("<h3>Description:</h3>" + "<p>" + description + "</p>");
 	}
+	$("#details").append("<a href='" + url + "' color='white'>View on Twitch!</a>");
 }
