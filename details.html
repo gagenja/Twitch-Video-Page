@@ -7,7 +7,7 @@
 <script>
 var url = window.location.href.split("?");
 var id = url[1].replace("id=", "");
-var newUrl = "https://api.twitch.tv/helix/videos?id=" + id;
+var newUrl = "https://api.twitch.tv/kraken/videos/" + id;
 	
 $(document).ready(function() { 
 	$("#title").text(id);
@@ -16,8 +16,11 @@ APICall(newUrl, displayDetails);
 </script>
 </head>
 <body>
-<h1>This is the display page! Hooray!</h1>
-<h2 id="title"></h2>
-<div id="details"></div>
+<h1 id="title">This is the display page! Hooray!</h1>
+<h2 id="channel"></h2>
+<div id="vidPlayer"></div>
+<div id="details">
+<h3>Description:</h3>
+</div>
 </body>
 </html>

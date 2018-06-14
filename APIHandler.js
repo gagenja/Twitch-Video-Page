@@ -16,21 +16,17 @@ function APICall(url, callback) {
 //Video Search Page
 
 //Populates video list using passed in JSON object from API request
-function displayVids(videos) {
+function displayVids(data) {
 	var i, title, thumbnail, id, url;
 
-	for(i = 0; i < videos.data.length; i++) {
-		title = videos.data[i].title;
-		if(videos.data[i].type != "live") {
-			thumbnail = videos.data[i].thumbnail_url.replace("%{width}", "355").replace("%{height}", "200");
-		}
-		else {
-			thumbnail = videos.data[i].thumbnail_url.replace("{width}", "355").replace("{height}", "200");
-		}
-		id = videos.data[i].id;
+	for(i = 0; i < data.videos.length; i++) {
+		title = data.videos[i].title;
+		thumbnail = data.videos[i].thumbnails[0].url;	
+		id = data.videos[i]._id;
 		url = "details.html?id=" + id;
-		$("#videos").append("<div class='vid' id='" + id + "' onclick='window.location=\"" + url +"\";'>" 
-			+ title + "<img src='" + thumbnail + "'></div>");
+		$("#videos").append("<div class='vid' id='" + id 
+		+ "' onclick='window.location=\"" + url +"\";'>" 
+		+ title + "<img src='" + thumbnail + "'></div>");
 	}
 }
 
@@ -38,42 +34,56 @@ function searchVids() {
 	//read value of searchBy to determine type of search
 	$(document).ready(function() {
 		if($("#searchBy").val()=="user") {
-			var url = "https://api.twitch.tv/helix/users?login=" + $("#vidSearch").val();
+			var url = "https://api.twitch.tv/kraken/search/channels?query=" + $("#vidSearch").val();
 			APICall(url, searchByUser);
 		}
 		else {
-			var url = "https://api.twitch.tv/helix/games?name=" + $("#vidSearch").val();
+			var url = "https://api.twitch.tv/kraken/search/games?type=suggest&query=" + $("#vidSearch").val();
 			APICall(url, searchByGame);
 		}
 	});
 }
 
-function searchByUser(users) {	
-	var url = "https://api.twitch.tv/helix/videos?user_id=" + users.data[0].id;
-	APICall(url, displayVids);
+function searchByUser(data) {
+	var i;
+	for(i = 0; i < data.channels.length; i++) {
+		var url = "https://api.twitch.tv/kraken/channels/" + data.channels[i].name + "/videos?limit=20&broadcast_type=all&sort=time";
+		APICall(url, displayVids);
+	}
 }
 
-function searchByGame(games) {
-	var url = "https://api.twitch.tv/helix/streams?game_id=" + games.data[0].id;
-	APICall(url, displayVids)
+function searchByGame(data) {
+	var i;
+	for(i = 0; i < data.games.length; i++) {
+		var url = "https://api.twitch.tv/kraken/videos/top?limit=20&game=" + data.games[i].name;
+		APICall(url, displayVids)
+	}
 }
 
 //Details Page
 
 function displayDetails(video) {
-	var title, description, published, url, type, thumbnail, viewcount, duration;
-	title = video.data[0].title;
-	description = video.data[0].description;
-	published = video.data[0].published_at;
-	url = video.data[0].url;
-	type = video.data[0].type;
-	if(type != "live") {
-			thumbnail = video.data[0].thumbnail_url.replace("%{width}", "355").replace("%{height}", "200");
-		}
-		else {
-			thumbnail = video.data[0].thumbnail_url.replace("{width}", "355").replace("{height}", "200");
-		}
-	viewcount = video.data[0].view_count;
-	duration = video.data[0].duration;
+	var id, title, channel, description, published, url, type, thumbnail, viewcount, duration;
+	id = video._id
+	title = video.title;
+	channel = video.channel.display_name;
+	description = video.description;
+	published = video.published_at;
+	url = video.url;
+	type = video.broadcast_type;
+	thumbnail = video.thumbnails[0].url;
+	viewcount = video.views;
 	$("#title").text(title);
+	$("#channel").text(channel);
+	$("#vidPlayer").append("<iframe src='http://player.twitch.tv/?video=" + id +
+	"&autoplay=false'" +
+    "height='720'" +
+    "width='1280'" +
+    "frameborder='0'" +
+    "scrolling='no'" +
+    "allowfullscreen='true'>" +
+	"</iframe>");
+	if(description != null) {
+		$("#details").append("<p>" + description + "</p>");
+	}
 }

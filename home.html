@@ -19,8 +19,8 @@ function clearVids() {
 	$("#videos").empty();
 }
 
-<!-- initialize video list with top 20 streams -->
-APICall("https://api.twitch.tv/helix/streams?first=20", displayVids);
+<!-- initialize video list with top 20 videos -->
+APICall("https://api.twitch.tv/kraken/videos/top?limit=20", displayVids);
 </script>
 </head>
 <body>
@@ -32,7 +32,7 @@ APICall("https://api.twitch.tv/helix/streams?first=20", displayVids);
 	<option value="game">Game</option>
 </select>
 <button onclick="clearVids(); searchVids()" id="searchButton">Search</button>
-<button onclick="clearVids(); APICall('https://api.twitch.tv/helix/streams?first=20', displayVids);">Top 20 Streams</button>
+<button onclick="clearVids(); APICall('https://api.twitch.tv/kraken/videos/top?limit=20', displayVids);">Top 20 Videos</button>
 <div id="videos" class="container"></div>
 </body>
 </html>

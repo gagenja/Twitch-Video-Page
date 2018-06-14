@@ -2,6 +2,7 @@ body {
 	background-color: #6441A4; /*twitch purple*/
 	font-family: Arial;
 	color: white;
+	margin-left: 50px;
 }
 
 h1, p {
@@ -26,9 +27,9 @@ h1, p {
 	flex-wrap: wrap;
 	font-size: 20px;
 	margin-right: 50px;
-	margin-bottom: 50px;
-	height: 250px;
-	width: 355px;
+	margin-top: 50px;
+	height: 263px;
+	width: 320px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -36,3 +37,5 @@ h1, p {
 	border-style: outset;
 	
 }
+
+
