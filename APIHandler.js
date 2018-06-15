@@ -18,16 +18,17 @@ function APICall(url, callback) {
 
 //Populates video list using passed in JSON object from API request
 function displayVids(data) {
-	var i, title, thumbnail, id, url;
+	var i, title, thumbnail, channel, id, url;
 	//create a div for each video containing its name and thumbnail
 	for(i = 0; i < data.videos.length; i++) {
 		title = data.videos[i].title;
-		thumbnail = data.videos[i].thumbnails[0].url;	
+		thumbnail = data.videos[i].thumbnails[0].url;
+		channel = data.videos[i].channel.display_name;
 		id = data.videos[i]._id;
 		url = "details.html?id=" + id;
-		$("#videos").append("<div class='vid' id='" + id 
-		+ "' onclick='window.location=\"" + url +"\";'>" 
-		+ title + "<img src='" + thumbnail + "'></div>");
+		$("#videos").append("<div class='vid' title='" + title 
+		+ "' onclick='window.location=\"" + url +"\";'><span>" 
+		+ title + "</span><img src='" + thumbnail + "'><span>By " + channel + "</span></div>");
 	}
 }
 
