@@ -1,0 +1,51 @@
+body {
+	background-color: #6441A4; /*twitch purple*/
+	font-family: Arial;
+	color: white;
+	margin-left: 50px;
+	
+}
+
+a {
+	color: white;
+}
+
+span {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.container {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+	align-content: space-between;
+	
+}
+
+.vid {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	font-size: 20px;
+	margin-right: 50px;
+	margin-top: 50px;
+	height: 290px;
+	width: 310px;
+	min-width: 0;
+	background-color: #50318c;
+	border-style: outset;
+	border-color: #50318c;
+}
+
+#details {
+	max-width: 1280px;
+	background-color: #50318c;
+	border-style: outset;
+	border-color: #50318c;
+}
+
+

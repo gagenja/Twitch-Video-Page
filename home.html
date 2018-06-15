@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Twitch-Video-Page</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script src="jquery-3.3.1.min.js"></script>
+<script src="APIHandler.js"></script>
+<script>
+$(document).ready(function() {
+	$("#vidSearch").keyup(function(event) {
+		if(event.keyCode == 13) {
+			$("#searchButton").click();
+		}
+	});
+});
+<!-- clears video list -->
+function clearVids() {
+	$("#videos").empty();
+}
+<!-- initialize video list with top 20 videos -->
+APICall("https://api.twitch.tv/kraken/videos/top?limit=20", displayVids);
+</script>
+</head>
+<body>
+<h1>Twitch Video Page Project</h1>
+<h2>Search for videos!</h2>
+<input type="search" id="vidSearch">Search by</input>
+<select id="searchBy">
+	<option value="user">User</option>
+	<option value="game">Game</option>
+</select>
+<button onclick="clearVids(); searchVids()" id="searchButton">Search</button>
+<button onclick="clearVids(); APICall('https://api.twitch.tv/kraken/videos/top?limit=20', displayVids);">Top 20 Videos</button>
+<div id="videos" class="container"></div>
+</body>
+</html>
